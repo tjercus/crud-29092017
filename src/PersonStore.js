@@ -59,6 +59,15 @@ class PersonStore {
     return _person;
   };
 
+  deletePerson(id) {
+    // TODO fix
+    const index = this.people.findIndex(person => String(person.id) === String(id));
+    if (index > -1) {
+      this.people.splice(index, 1);
+    }
+    console.log("PersonStore.deletePerson", this.people.length);
+  }
+
   addSubscriber(subscriber) {
     this.subscribers.push(subscriber);
   };
@@ -80,6 +89,20 @@ class PersonStore {
           console.log("PersonStore.dispatch UPDATE_PERSON", action.payload);
           this.notifySubscribers();
         break;
+        case "ADD_PERSON" :
+          this.selectedId = Math.floor((Math.random() * 100000000) + 1);
+          this.addPerson({id: this.selectedId, name: "new person"});
+          console.log("PersonStore.dispatch ADD_PERSON", action.payload);
+          this.notifySubscribers();
+          break;
+        case "DELETE_PERSON" :
+          this.selectedId = null;
+          console.log("PersonStore.dispatch DELETE_PERSON", action.payload);
+          this.deletePerson(action.payload);
+          this.notifySubscribers();
+          break;
+        default:
+          break;
       }
     }
 }

@@ -38,7 +38,11 @@ class PersonFormContainer extends React.Component {
   };
 
   render() {
-    return PersonView(this.state.person, this.onChangeHandler, this.saveClickHandler);
+    if (this.props.personStore.getSelectedPerson()) {
+      return PersonView(this.state.person, this.onChangeHandler, this.saveClickHandler);
+    } else {
+      return "";
+    }
   }
 }
 

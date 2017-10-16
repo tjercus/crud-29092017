@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from "react";
-import PersonsList from "./PersonsList";
+import PersonsListView from "./PersonsListView";
 
 class PersonsListContainer extends React.Component {
 
@@ -28,14 +28,24 @@ class PersonsListContainer extends React.Component {
     this.props.personStore.dispatch({type: "SELECT_PERSON", payload: evt.target.value});
   };
 
+  addPersonClickHandler = () => {
+    this.props.personStore.dispatch({type: "ADD_PERSON"});
+  };
+  delPersonClickHandler = id => {
+    console.log("delPersonClickHandler", id);
+    this.props.personStore.dispatch({type: "DELETE_PERSON", payload: id});
+  };
+
   getSelectedPersonId = (state, props) => {
     return { selectedId: this.props.personStore.getSelectedPersonId };
   };
 
   render() {
-    return PersonsList(this.props.personStore.getPeople(),
+    return PersonsListView(this.props.personStore.getPeople(),
       this.state.selectedId,
-      this.personClickHandler);
+      {personClickHandler: this.personClickHandler,
+        addPersonClickHandler: this.addPersonClickHandler,
+        delPersonClickHandler: this.delPersonClickHandler});
   }
 
 }
