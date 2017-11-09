@@ -14,7 +14,6 @@ const List = (children, eventhandlers) => (
   </ul>
 );
 
-// personClickHandler, delPersonClickHandler
 const ListItem = (person, selectedId, eventhandlers) => (
   <li
     key={person.id}
@@ -26,7 +25,7 @@ const ListItem = (person, selectedId, eventhandlers) => (
   >
     {person.name}
     <a
-      href="#"
+      href="#delete"
       className="secondary-content"
       onClick={() => eventhandlers.delPersonClickHandler(person.id)}
     >
