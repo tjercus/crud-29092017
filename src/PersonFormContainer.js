@@ -5,7 +5,7 @@ import PersonView from "./PersonFormView";
 
 class PersonFormContainer extends React.Component {
   static propTypes = {
-    personStore: PropTypes.object.isRequired,
+    personStore: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -14,13 +14,16 @@ class PersonFormContainer extends React.Component {
     this.props.personStore.addSubscriber(this);
 
     this.state = {
-      person: { name: "" },
+      person: { name: "" }
     };
   }
 
   saveClickHandler = evt => {
     evt.preventDefault();
-    this.props.personStore.dispatch({ type: "UPDATE_PERSON", payload: this.state.person });
+    this.props.personStore.dispatch({
+      type: "UPDATE_PERSON",
+      payload: this.state.person
+    });
   };
 
   onStoreChange = () => {
@@ -39,7 +42,11 @@ class PersonFormContainer extends React.Component {
 
   render() {
     if (this.props.personStore.getSelectedPerson()) {
-      return PersonView(this.state.person, this.onChangeHandler, this.saveClickHandler);
+      return PersonView(
+        this.state.person,
+        this.onChangeHandler,
+        this.saveClickHandler
+      );
     } else {
       return "";
     }

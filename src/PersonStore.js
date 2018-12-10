@@ -1,17 +1,9 @@
-// import * from "interfaces";
-
-/**
- * Factory function to create a store
- * @returns {{getPeople: (function()), getPerson: (function(*)), setPerson: (function(*)), addPerson: (function(*=)), getSelectedPerson: (function()), notifySubscribers: (function()), addSubscriber: (function(*=)), dispatch: (function(*))}}
- * @constructor
- */
 class PersonStore {
-
   constructor() {
     this.people = [
-      {id: 1, name: "Dave"},
-      {id: 2, name: "John"},
-      {id: 3, name: "Paul"}
+      { id: 1, name: "Dave" },
+      { id: 2, name: "John" },
+      { id: 3, name: "Paul" }
     ];
 
     this.selectedId = null;
@@ -43,11 +35,11 @@ class PersonStore {
     });
     console.log("PersonStore.setPerson", newPeople);
     this.people = newPeople;
-  };
+  }
 
   addPerson(person) {
     this.people.push(person);
-  };
+  }
 
   getSelectedPersonId() {
     return this.selectedId;
@@ -57,11 +49,12 @@ class PersonStore {
     const _person = this.getPerson(this.selectedId);
     console.log("PersonStore.getSelectedPerson", this.selectedId, _person);
     return _person;
-  };
+  }
 
   deletePerson(id) {
-    // TODO fix
-    const index = this.people.findIndex(person => String(person.id) === String(id));
+    const index = this.people.findIndex(
+      person => String(person.id) === String(id)
+    );
     if (index > -1) {
       this.people.splice(index, 1);
     }
@@ -70,7 +63,7 @@ class PersonStore {
 
   addSubscriber(subscriber) {
     this.subscribers.push(subscriber);
-  };
+  }
 
   notifySubscribers() {
     this.subscribers.map(subscriber => subscriber.onStoreChange());
@@ -78,33 +71,33 @@ class PersonStore {
 
   dispatch(action) {
     console.log(action);
-      switch (action.type) {
-        case "SELECT_PERSON" :
-          this.selectedId = action.payload;
-          console.log("PersonStore.dispatch SELECT_PERSON", action.payload);
-          this.notifySubscribers();
+    switch (action.type) {
+      case "SELECT_PERSON":
+        this.selectedId = action.payload;
+        console.log("PersonStore.dispatch SELECT_PERSON", action.payload);
+        this.notifySubscribers();
         break;
-        case "UPDATE_PERSON" :
-          this.setPerson(action.payload);
-          console.log("PersonStore.dispatch UPDATE_PERSON", action.payload);
-          this.notifySubscribers();
+      case "UPDATE_PERSON":
+        this.setPerson(action.payload);
+        console.log("PersonStore.dispatch UPDATE_PERSON", action.payload);
+        this.notifySubscribers();
         break;
-        case "ADD_PERSON" :
-          this.selectedId = Math.floor((Math.random() * 100000000) + 1);
-          this.addPerson({id: this.selectedId, name: "new person"});
-          console.log("PersonStore.dispatch ADD_PERSON", action.payload);
-          this.notifySubscribers();
-          break;
-        case "DELETE_PERSON" :
-          this.selectedId = null;
-          console.log("PersonStore.dispatch DELETE_PERSON", action.payload);
-          this.deletePerson(action.payload);
-          this.notifySubscribers();
-          break;
-        default:
-          break;
-      }
+      case "ADD_PERSON":
+        this.selectedId = Math.floor(Math.random() * 100000000 + 1);
+        this.addPerson({ id: this.selectedId, name: "new person" });
+        console.log("PersonStore.dispatch ADD_PERSON", action.payload);
+        this.notifySubscribers();
+        break;
+      case "DELETE_PERSON":
+        this.selectedId = null;
+        console.log("PersonStore.dispatch DELETE_PERSON", action.payload);
+        this.deletePerson(action.payload);
+        this.notifySubscribers();
+        break;
+      default:
+        break;
     }
+  }
 }
 
 export default PersonStore;

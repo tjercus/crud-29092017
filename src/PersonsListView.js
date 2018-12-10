@@ -7,8 +7,10 @@ const List = (children, eventhandlers) => (
       <h4>People</h4>
     </li>
     {children}
-    <button onClick={eventhandlers.addPersonClickHandler}
-            className="waves-effect waves-light btn">
+    <button
+      onClick={eventhandlers.addPersonClickHandler}
+      className="waves-effect waves-light btn"
+    >
       Add a person
     </button>
   </ul>
@@ -19,7 +21,9 @@ const ListItem = (person, selectedId, eventhandlers) => (
     key={person.id}
     value={person.id}
     className={
-      String(person.id) === String(selectedId) ? "collection-item active" : "collection-item"
+      String(person.id) === String(selectedId)
+        ? "collection-item active"
+        : "collection-item"
     }
     onClick={eventhandlers.personClickHandler}
   >
@@ -35,23 +39,20 @@ const ListItem = (person, selectedId, eventhandlers) => (
 );
 
 // TODO group handlers in an object and use spread operator to destructure
-// personClickHandler, addPersonClickHandler, delPersonClickHandler
 const PersonsListView = (people, selectedId, eventhandlers) => {
-  // return List(people.map(ListItem));
-  return List(people.map(person => {
+  return List(
+    people.map(person => {
       console.log("selectedId", selectedId);
       return ListItem(person, selectedId, eventhandlers);
-      // return ListItem(person, selectedId, personClickHandler, delPersonClickHandler)
-    }), eventhandlers);
+    }),
+    eventhandlers
+  );
 };
 
 PersonsListView.propTypes = {
   people: PropTypes.instanceOf(Array).isRequired,
   selectedId: PropTypes.number.isRequired,
   eventhandlers: PropTypes.object.isRequired
-  // personClickHandler: PropTypes.func.isRequired,
-  // addPersonClickHandler: PropTypes.func.isRequired,
-  // delPersonClickHandler: PropTypes.func.isRequired,,
 };
 
 export default PersonsListView;

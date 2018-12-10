@@ -3,6 +3,8 @@
 With: 
 - homebrew flux implementation.
 - materialize css framework
+- containercomponents
+- functional stateless components
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 

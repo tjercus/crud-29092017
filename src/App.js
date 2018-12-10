@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 import PersonsListContainer from "./PersonsListContainer";
 import PersonFormContainer from "./PersonFormContainer";
 import PersonStore from "./PersonStore";
 
 class App extends Component {
-
   constructor(props) {
     super(props);
     this.personStore = new PersonStore();
@@ -14,9 +13,7 @@ class App extends Component {
   render() {
     return (
       <div className="row">
-        <div className="col s6">
-
-        </div>
+        <div className="col s6" />
         <div className="col s6">
           <header>
             <h1 className="header">List of People</h1>
